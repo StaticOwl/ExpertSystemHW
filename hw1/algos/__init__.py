@@ -8,4 +8,4 @@ Description: write_a_description
 
 from .ssga import ssga
 
-__all__ = ['ssga', 'aco']
+__all__ = ['ssga']

@@ -10,6 +10,8 @@ import math
 
 import numpy as np
 
+from hw1.utils.plotter import plot_best_distances, finalize_plot, plot_best_path
+
 
 def evaluate_fitness(tours, distance_matrix):
     """
@@ -40,9 +42,12 @@ def select_parents(population, fitness_scores, num_parents):
         array_like: Selected parents for crossover.
     """
     sorted_indices = np.argsort(fitness_scores)[::-1]
-    elites = population[sorted_indices[:num_parents // 2]]
-    random_indices = np.random.choice(len(population), size=num_parents // 2, replace=False)
-    diverse_parents = population[random_indices]
+    elite_count = max(1, num_parents // 4)
+    elites = population[sorted_indices[:elite_count]]
+
+    diversity_count = num_parents - elite_count
+    remaining_indices = np.random.choice(len(population), size=diversity_count, replace=False)
+    diverse_parents = population[remaining_indices]
     return np.vstack((elites, diverse_parents))
 
 
@@ -157,13 +162,19 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
         best_distance = 1.0 / fitness_scores[best_tour_idx]
         best_distances.append(best_distance)
 
-
         if not noout:
             print(
                 f"Generation {generation + 1}, Best Distance: {math.ceil(best_distance)}, Mutation Rate: {current_mutation_prob:.4f}")
 
+
     best_tour_idx = np.argmax(fitness_scores)
     best_distance = 1.0 / fitness_scores[best_tour_idx]
     best_tour = population[best_tour_idx]
+
+    plot_best_distances(best_distances)
+
+    plot_best_path(best_tour, distance_matrix)
+
+    finalize_plot()
 
     return math.ceil(best_distance), best_tour

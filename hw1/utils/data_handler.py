@@ -9,6 +9,7 @@ Description: Utility functions for generating and reading distance matrices for 
 import sys
 
 import numpy as np
+from sklearn.manifold import MDS
 
 
 def generate_distances(n, city_weights=None):
@@ -86,3 +87,10 @@ def data_handler(input_data):
         dists = generate_distances(n)
 
     return dists
+
+
+def generate_city_coordinates(distance_matrix):
+    """Generate city coordinates from a distance matrix using MDS."""
+    mds = MDS(n_components=2, dissimilarity='precomputed', random_state=42)
+    coordinates = mds.fit_transform(distance_matrix)
+    return coordinates
