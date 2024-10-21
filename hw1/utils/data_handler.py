@@ -46,7 +46,7 @@ def read_distances(filename):
     Read a CSV file containing distance matrices for the Traveling Salesman Problem.
     
     Parameters:
-        filename: The path to a CSV file containing the distance matrix.
+        filename (str): The path to a CSV file containing the distance matrix.
 
     Returns:
         A Numpy array of the distances.
@@ -64,6 +64,13 @@ def read_distances(filename):
 def get_argv(index, default):
     """
     Get the argument at the given index from sys.argv, or return the default if not enough arguments are given.
+
+    Parameters:
+        index (int): The index of the argument to get.
+        default: The default value to return if the argument is not given.
+
+    Returns:
+        The argument at the given index, or the default if not enough arguments are given.
     """
     if len(sys.argv) > index:
         return sys.argv[index]
@@ -81,7 +88,7 @@ def data_handler(input_data):
         array_like: A symmetric distance matrix as a Numpy array.
     """
     if input_data.endswith('.csv'):
-        dists = np.array(read_distances(input_data), dtype=np.float64)
+        dists = read_distances(input_data)
     else:
         n = int(input_data)
         dists = generate_distances(n)

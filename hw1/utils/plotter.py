@@ -50,7 +50,8 @@ def plot_best_path(best_tour, distance_matrix, show_legend=True):
     for i in range(len(best_tour)):
         start_city = best_tour[i]
         end_city = best_tour[(i + 1) % len(best_tour)]
-        plt.plot([x[start_city], x[end_city]], [y[start_city], y[end_city]], color='blue', linewidth=1, label='Path' if i == 0 else "")
+        plt.plot([x[start_city], x[end_city]], [y[start_city], y[end_city]], color='blue', linewidth=1,
+                 label='Path' if i == 0 else "")
 
     plt.scatter(x, y, color='red', marker='o', s=50, label='Cities')
     for i, (cx, cy) in enumerate(zip(x, y)):

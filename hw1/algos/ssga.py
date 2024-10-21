@@ -137,14 +137,13 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
     Run the Steady-State Genetic Algorithm.
     
     Parameters:
-        :param population_size: Size of the population.
-        :param num_generations: Number of generations to run the algorithm.
-        :param distance_matrix: Distance matrix between cities.
-        :param noout: Whether to print the output or not.
+        distance_matrix (array_like): Distance matrix between cities.
+        num_generations (int): Number of generations to run the algorithm.
+        population_size (int): Size of the population.
+        noout (bool): Whether to print the output or not.
     
     Returns:
         tuple: Best tour cost and the tour path.
-
     """
     num_cities = distance_matrix.shape[0]
     population = np.array([np.random.permutation(num_cities) for _ in range(population_size)])
@@ -165,7 +164,6 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
         if not noout:
             print(
                 f"Generation {generation + 1}, Best Distance: {math.ceil(best_distance)}, Mutation Rate: {current_mutation_prob:.4f}")
-
 
     best_tour_idx = np.argmax(fitness_scores)
     best_distance = 1.0 / fitness_scores[best_tour_idx]
