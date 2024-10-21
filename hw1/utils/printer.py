@@ -6,6 +6,7 @@ Created: 20-10-2024
 Description: Utility functions for printing matrices and paths.
 """
 
+
 def print_matrix(dists, noout=False):
     """
     Print a matrix of distances.

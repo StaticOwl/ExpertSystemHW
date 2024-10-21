@@ -14,6 +14,7 @@ import argparse
 import time
 
 import algos
+from hw1.utils.plotter import plot_best_path
 from utils.data_handler import data_handler
 from utils.printer import print_matrix
 
@@ -71,6 +72,8 @@ def main(args=None):
         if not args.noout:
             print("Path:", path)
         print("Total Time:", time.time() - start_time, "s")
+        if not args.noout:
+            plot_best_path(path, dists)
     except Exception as e:
         print(e)
 

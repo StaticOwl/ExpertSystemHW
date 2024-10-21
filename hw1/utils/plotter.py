@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from hw1.utils.data_handler import generate_city_coordinates
 
 
-def plot_best_distances(best_distances, show_legend=True):
+def plot_best_distances(best_distances, num_cities, show_legend=True):
     """Plot the best distances over generations.
 
     Parameters:
@@ -28,7 +28,7 @@ def plot_best_distances(best_distances, show_legend=True):
     plt.ylabel('Best Distance')
     plt.grid()
 
-    plt.title(f'Best Tour Distance Over Generations')
+    plt.title(f'Best Tour Distance Over Generations ({num_cities} cities)')
 
     if show_legend:
         plt.legend()

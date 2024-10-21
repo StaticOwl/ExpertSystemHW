@@ -10,7 +10,7 @@ import math
 
 import numpy as np
 
-from hw1.utils.plotter import plot_best_distances, finalize_plot, plot_best_path
+from hw1.utils.plotter import plot_best_distances, finalize_plot
 
 
 def evaluate_fitness(tours, distance_matrix):
@@ -169,9 +169,7 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
     best_distance = 1.0 / fitness_scores[best_tour_idx]
     best_tour = population[best_tour_idx]
 
-    plot_best_distances(best_distances)
-
-    plot_best_path(best_tour, distance_matrix)
+    plot_best_distances(best_distances, num_cities)
 
     finalize_plot()
 
