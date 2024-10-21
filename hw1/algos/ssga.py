@@ -10,7 +10,7 @@ import math
 
 import numpy as np
 
-from hw1.utils.plotter import plot_best_distances, finalize_plot
+from utils.plotter import plot_best_distances, finalize_plot
 
 
 def evaluate_fitness(tours, distance_matrix):
@@ -29,7 +29,7 @@ def evaluate_fitness(tours, distance_matrix):
     return 1.0 / distances
 
 
-def select_parents(population, fitness_scores, num_parents):
+def select_parents(population, fitness_scores, num_parents, percent_reduction = 4):
     """
     Select parents using diversified elitism.
     
@@ -37,12 +37,12 @@ def select_parents(population, fitness_scores, num_parents):
         population (array_like): Current population of tours.
         fitness_scores (array_like): Fitness scores of the population.
         num_parents (int): Number of parents to select.
-    
+        percent_reduction (int): Percent reduction in number of parents.
     Returns:
         array_like: Selected parents for crossover.
     """
     sorted_indices = np.argsort(fitness_scores)[::-1]
-    elite_count = max(1, num_parents // 4)
+    elite_count = max(1, num_parents // percent_reduction)
     elites = population[sorted_indices[:elite_count]]
 
     diversity_count = num_parents - elite_count
@@ -118,21 +118,23 @@ def mutate(children, mutation_prob):
     return children
 
 
-def adaptive_mutation_rate(generation, max_generations):
+def adaptive_mutation_rate(generation, max_generations, mutation_seed=0.1):
     """
     Compute adaptive mutation rate.
     
     Parameters:
         generation (int): Current generation number.
         max_generations (int): Maximum number of generations.
-    
+        mutation_seed (float): Initial mutation rate.
     Returns:
         float: Mutation rate.
     """
-    return max(0.01, 0.1 * (1 - generation / max_generations))
+    mutation = max(0.01, mutation_seed * (1 - generation / max_generations))
+    print(f"Mutation Rate: {mutation}")
+    return mutation
 
 
-def ssga(distance_matrix, num_generations, population_size, noout=True):
+def ssga(distance_matrix, num_generations, population_size, mutation_seed=0.1, percent_reduction=4, noout=True):
     """
     Run the Steady-State Genetic Algorithm.
     
@@ -140,6 +142,8 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
         distance_matrix (array_like): Distance matrix between cities.
         num_generations (int): Number of generations to run the algorithm.
         population_size (int): Size of the population.
+        mutation_seed (float): Initial mutation rate.
+        percent_reduction (int): Percent reduction in number of parents.
         noout (bool): Whether to print the output or not.
     
     Returns:
@@ -151,9 +155,9 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
 
     for generation in range(num_generations):
         fitness_scores = evaluate_fitness(population, distance_matrix)
-        parents = select_parents(population, fitness_scores, population_size // 2)
+        parents = select_parents(population, fitness_scores, population_size // 2, percent_reduction)
         children = crossover(parents, population_size // 2)
-        current_mutation_prob = adaptive_mutation_rate(generation, num_generations)
+        current_mutation_prob = adaptive_mutation_rate(generation, num_generations, mutation_seed)
         children = mutate(children, current_mutation_prob)
         population = np.concatenate([parents, children], axis=0)
 
@@ -161,9 +165,9 @@ def ssga(distance_matrix, num_generations, population_size, noout=True):
         best_distance = 1.0 / fitness_scores[best_tour_idx]
         best_distances.append(best_distance)
 
-        if not noout:
-            print(
-                f"Generation {generation + 1}, Best Distance: {math.ceil(best_distance)}, Mutation Rate: {current_mutation_prob:.4f}")
+        # if not noout:
+        #     print(
+        #         f"Generation {generation + 1}, Best Distance: {math.ceil(best_distance)}, Mutation Rate: {current_mutation_prob:.4f}")
 
     best_tour_idx = np.argmax(fitness_scores)
     best_distance = 1.0 / fitness_scores[best_tour_idx]

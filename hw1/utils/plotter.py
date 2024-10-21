@@ -8,7 +8,7 @@ Description: Plotting utility for visualizing best distances over generations in
 
 import matplotlib.pyplot as plt
 
-from hw1.utils.data_handler import generate_city_coordinates
+from utils.data_handler import generate_city_coordinates
 
 
 def plot_best_distances(best_distances, num_cities, show_legend=True):

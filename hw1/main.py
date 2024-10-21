@@ -14,7 +14,7 @@ import argparse
 import time
 
 import algos
-from hw1.utils.plotter import plot_best_path
+from utils.plotter import plot_best_path
 from utils.data_handler import data_handler
 from utils.printer import print_matrix
 
@@ -37,6 +37,10 @@ def parse_arguments():
                         help='Population size.')
     parser.add_argument('--noout', default=False, action='store_true',
                         help='Do not print the output.')
+    parser.add_argument('--mutation_rate', default=0.1, type=float,
+                        help='Mutation rate.')
+    parser.add_argument('--parents_percent', default=4, type=int,
+                        help='Percent reduction in number of parents.')
     return parser.parse_args()
 
 
@@ -65,7 +69,7 @@ def main(args=None):
 
         algo = getattr(algos, args.algo)
 
-        cost, path = algo(dists, args.num_gen, args.pop_size, args.noout)
+        cost, path = algo(dists, args.num_gen, args.pop_size, args.mutation_rate, args.parents_percent, not args.noout)
 
         print("TSP Time:", time.time() - tsp_start_time, "s")
         print("Cost:", cost)
