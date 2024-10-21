@@ -17,3 +17,9 @@ The SSGA is a genetic algorithm that uses a steady-state approach, where a porti
 ## Current Status
 
 The algorithm is currently able to solve the Traveling Salesman Problem for a given set of cities. The algorithm uses a diversified elitism selection method, ordered crossover and adaptive mutation rate. The algorithm is able to plot the best distances over the generations and the final best path.
+
+## Sample Command
+
+```bash
+python main.py --noout --mutation_rate=0.01 --parents_percent=20 --input_size=2000 --pop_size=100
+```
