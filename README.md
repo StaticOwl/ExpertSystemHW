@@ -1,15 +1,19 @@
-# general_template
+# Expert Systems Home Work
 
-This is a general template for any repo in this project.
+This repository contains the home work for the Expert Systems course.
 
-# Description
+# SSGA (hw1)
 
-Here goes the description
+This is a Steady-State Genetic Algorithm for solving the Traveling Salesman Problem.
 
-# Credits
+## Description
+
+The SSGA is a genetic algorithm that uses a steady-state approach, where a portion of the population is replaced in each iteration. The algorithm starts with a random population and iteratively applies selection, crossover and mutation operators to generate new population. The algorithm stops when a maximum number of generations is reached.
+
+## Credits
 
 [@StaticOwl](https://www.github.com/StaticOwl)
 
-# Current Status
+## Current Status
 
-Here goes the the current status
+The algorithm is currently able to solve the Traveling Salesman Problem for a given set of cities. The algorithm uses a diversified elitism selection method, ordered crossover and adaptive mutation rate. The algorithm is able to plot the best distances over the generations and the final best path.
