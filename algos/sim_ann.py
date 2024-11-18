@@ -77,7 +77,7 @@ def sim_ann(distance_matrix, args):
         best_distances.append(best_distance)
         temperature = adaptive_temperature(initial_temp, final_temp, iteration, max_iterations)
 
-    plot_best_distances(best_distances, num_cities)
+    plot_best_distances(best_distances, num_cities, args, show_legend=False)
 
     finalize_plot()
     

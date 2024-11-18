@@ -61,6 +61,11 @@ def main(args=None):
     if args is None:
         print("You have to pass some arguments. Run 'python tsp.py --help' for more information.")
         return
+    
+    print("Num Generations:", args.num_gen)
+    print("Initial Temperature:", args.init_temp)
+    print("Final Temperature:", args.fin_temp)
+    print("Num Cities:", args.input_size)
 
     try:
         if args.input_size == "input":

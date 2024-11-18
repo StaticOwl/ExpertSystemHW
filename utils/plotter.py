@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from utils.data_handler import generate_city_coordinates
 
 
-def plot_best_distances(best_distances, num_cities, show_legend=True):
+def plot_best_distances(best_distances, num_cities, args, show_legend=True):
     """Plot the best distances over generations.
 
     Parameters:
@@ -28,7 +28,8 @@ def plot_best_distances(best_distances, num_cities, show_legend=True):
     plt.ylabel('Best Distance')
     plt.grid()
 
-    plt.title(f'Best Tour Distance Over Generations ({num_cities} cities)')
+    plt.title(f'Best Tour Distance Over Generations ({num_cities} cities, {args.num_gen} generations, Init Temp: {args.init_temp}, Fin Temp: {args.fin_temp})')
+    plt.savefig(f"sim_ann_{num_cities}_{args.num_gen}_{args.init_temp}_{args.fin_temp}.png")
 
     if show_legend:
         plt.legend()
@@ -63,10 +64,10 @@ def plot_best_path(best_tour, distance_matrix, show_legend=True):
     if show_legend:
         plt.legend()
 
-    plt.pause(0.01)
+    # plt.pause(0.01)
 
 
 def finalize_plot():
     """Finalizes the plot display."""
-    plt.ioff()
-    plt.show()
+    # plt.ioff()
+    # plt.show()
