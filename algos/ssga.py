@@ -134,7 +134,7 @@ def adaptive_mutation_rate(generation, max_generations, mutation_seed=0.1):
     return mutation
 
 
-def ssga(distance_matrix, num_generations, population_size, mutation_seed=0.1, percent_reduction=4, noout=True):
+def ssga(distance_matrix, args):
     """
     Run the Steady-State Genetic Algorithm.
     
@@ -149,6 +149,7 @@ def ssga(distance_matrix, num_generations, population_size, mutation_seed=0.1, p
     Returns:
         tuple: Best tour cost and the tour path.
     """
+    num_generations, population_size, mutation_seed, percent_reduction = args.num_gen, args.pop_size, args.mutation_rate, args.parents_percent
     num_cities = distance_matrix.shape[0]
     population = np.array([np.random.permutation(num_cities) for _ in range(population_size)])
     best_distances = []

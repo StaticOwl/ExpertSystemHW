@@ -7,5 +7,6 @@ Description: Implementation of genetic algorithms for solving optimization probl
 """
 
 from .ssga import ssga
+from .sim_ann import sim_ann
 
-__all__ = ['ssga']
+__all__ = ['ssga', 'sim_ann']

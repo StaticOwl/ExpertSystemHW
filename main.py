@@ -27,7 +27,7 @@ def parse_arguments():
         argparse.Namespace: A namespace containing the parsed arguments.
     """
     parser = argparse.ArgumentParser(description='Run TSP algorithms with different modes and settings.')
-    parser.add_argument('--algo', default='ssga', choices=['ssga', 'aco'],
+    parser.add_argument('--algo', default='ssga', choices=['ssga', 'sim_ann'],
                         help='Genetic Algorithm to use for solving TSP. Choices: ssga, aco.')
     parser.add_argument('--input_size', default="input", type=str,
                         help='Size of the input data. If "input", the user will be prompted to enter the input size.')
@@ -37,10 +37,15 @@ def parse_arguments():
                         help='Population size.')
     parser.add_argument('--noout', default=False, action='store_true',
                         help='Do not print the output.')
-    parser.add_argument('--mutation_rate', default=0.1, type=float,
-                        help='Mutation rate.')
+    parser.add_argument('--mutation_seed', default=0.1, type=float,
+                        help='Mutation Seed.')
     parser.add_argument('--parents_percent', default=4, type=int,
                         help='Percent reduction in number of parents.')
+    parser.add_argument('--init_temp', default=1000, type=int, 
+                        help='Initial temperature for Simulated Annealing.')
+    parser.add_argument('--fin_temp', default=1, type=int,
+                        help='Final temperature for Simulated Annealing.')
+    
     return parser.parse_args()
 
 
@@ -69,7 +74,7 @@ def main(args=None):
 
         algo = getattr(algos, args.algo)
 
-        cost, path = algo(dists, args.num_gen, args.pop_size, args.mutation_rate, args.parents_percent, not args.noout)
+        cost, path = algo(dists, args)
 
         print("TSP Time:", time.time() - tsp_start_time, "s")
         print("Cost:", cost)
