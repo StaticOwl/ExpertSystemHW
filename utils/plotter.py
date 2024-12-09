@@ -28,7 +28,7 @@ def plot_best_distances(best_distances, num_cities, args, show_legend=True):
     plt.ylabel('Best Distance')
     plt.grid()
 
-    plt.title(f'Best Tour Distance Over Generations ({num_cities} cities, {args.num_gen} generations, Init Temp: {args.init_temp}, Fin Temp: {args.fin_temp})')
+    plt.title(f'Best Tour Distance Over Generations ({num_cities} cities, {args.num_gen} generations, Alpha: {args.alpha}, Beta: {args.beta}, Evaporation Rate: {args.evaporation_rate}, Ants: {args.num_ants})')
     plt.savefig(f"{args.algo}_cities{num_cities}_numgen{args.num_gen}_alpha{args.alpha}_beta{args.beta}_er{args.evaporation_rate}_ants{args.num_ants}.png")
 
     if show_legend:
