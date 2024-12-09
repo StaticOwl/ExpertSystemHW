@@ -89,7 +89,7 @@ def main():
     num_cities = len(distance_matrix)
 
     # Solve TSP using Simulated Annealing
-    best_path, best_distance, best_distances = sim_ann(distance_matrix, num_cities)
+    best_path, best_distance, _ = sim_ann(distance_matrix, num_cities)
 
     # Finalize best distance plot
     finalize_plot()

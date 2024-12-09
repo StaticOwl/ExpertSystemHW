@@ -27,8 +27,8 @@ def parse_arguments():
         argparse.Namespace: A namespace containing the parsed arguments.
     """
     parser = argparse.ArgumentParser(description='Run TSP algorithms with different modes and settings.')
-    parser.add_argument('--algo', default='ssga', choices=['ssga', 'sim_ann'],
-                        help='Genetic Algorithm to use for solving TSP. Choices: ssga, aco.')
+    parser.add_argument('--algo', default='ssga', choices=['ssga', 'sim_ann', 'aco'],
+                        help='Genetic Algorithm to use for solving TSP. Choices: ssga, sim_ann, aco.')
     parser.add_argument('--input_size', default="input", type=str,
                         help='Size of the input data. If "input", the user will be prompted to enter the input size.')
     parser.add_argument('--num_gen', default=100, type=int,
@@ -45,6 +45,14 @@ def parse_arguments():
                         help='Initial temperature for Simulated Annealing.')
     parser.add_argument('--fin_temp', default=1, type=int,
                         help='Final temperature for Simulated Annealing.')
+    parser.add_argument('--alpha', default=0.99, type=float,
+                        help='Alpha for Ant Colony Optimization.')
+    parser.add_argument('--beta', default=0.99, type=float,
+                        help='Beta for Ant Colony Optimization.')
+    parser.add_argument('--num_ants', default=10, type=int,
+                        help='Number of ants for Ant Colony Optimization.')
+    parser.add_argument('--ep', dest='evaporation_rate', default=0.5, type=float,
+                        help='Evaporation rate for Ant Colony Optimization.')
     
     return parser.parse_args()
 
@@ -63,8 +71,10 @@ def main(args=None):
         return
     
     print("Num Generations:", args.num_gen)
-    print("Initial Temperature:", args.init_temp)
-    print("Final Temperature:", args.fin_temp)
+    print("Alpha:", args.alpha)
+    print("Beta:", args.beta)
+    print("Evaporation Rate:", args.evaporation_rate)
+    print("Number of Ants:", args.num_ants)
     print("Num Cities:", args.input_size)
 
     try:
@@ -72,7 +82,7 @@ def main(args=None):
             input_size = input("Please enter the input size: ")
             args.input_size = input_size
         dists = data_handler(args.input_size)
-        print_matrix(dists, args.noout)
+        # print_matrix(dists, args.noout)
         print("Data Generation Time:", time.time() - start_time, "s")
 
         tsp_start_time = time.time()
